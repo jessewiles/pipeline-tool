@@ -1,15 +1,15 @@
 extern crate argparse;
 
-pub mod things;
+pub mod pipelines;
 
 use argparse::{ArgumentParser, Store, StoreTrue};
+use pipelines::Pipelines;
 use serde_yaml::{self};
-use things::Pipelines;
 
 include!("yaml.rs");
 
 fn main() {
-    let mut config_path = "config.yml".to_string();
+    let mut pipelines_path = "pipelines.yml".to_string();
     let mut verbose = false;
     let mut name = "World".to_string();
     {
@@ -20,7 +20,7 @@ fn main() {
             .add_option(&["-v", "--verbose"], StoreTrue, "Be verbose");
         ap.refer(&mut name)
             .add_option(&["--name"], Store, "Name for the greeting");
-        ap.refer(&mut config_path).add_argument(
+        ap.refer(&mut pipelines_path).add_argument(
             "Config path",
             Store,
             "Path to the pipeline tool configuration file.",
@@ -31,7 +31,7 @@ fn main() {
     if verbose {
         println!("name is {}", name);
     }
-    println!("Hello {}!", name);
-    let pconfig: things::Pipelines = load_config(&config_path);
-    println!("{:?}", pconfig);
+
+    let ppipelines: pipelines::Pipelines = load_pipelines(&pipelines_path);
+    println!("{:?}", ppipelines);
 }
