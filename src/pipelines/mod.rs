@@ -1,12 +1,12 @@
 use serde::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize)]
-struct Pipeline {
-    name: String,
-    exe: String,
-    args: String,
+pub struct Pipeline {
+    pub name: String,
+    pub exe: String,
+    pub args: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Pipelines {
-    pipelines: Vec<Pipeline>,
+    pub pipelines: Vec<Pipeline>,
 }
